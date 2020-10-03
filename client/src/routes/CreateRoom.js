@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { v1 as uuid } from "uuid";
 import Navbar from "../components/Navbar";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -8,6 +8,8 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import TextField from "@material-ui/core/TextField";
 import artwork from "../misc/landing_coffeeshop.png";
 import CotterContext from "../contexts/userContext";
+import Fade from "@material-ui/core/Fade";
+import Grow from "@material-ui/core/Grow";
 
 const CssTextField = withStyles({
   root: {
@@ -97,6 +99,7 @@ const CreateRoom = (props) => {
   const [scene, setScene] = useState("coffeeshop");
   const [time, setTime] = useState("night");
   const [value, setValue] = useState("");
+  const [buttonsOpen, setButtonsOpen] = useState(false);
 
   const handleScene = (event, newScene) => {
     setScene(newScene);
@@ -127,63 +130,76 @@ const CreateRoom = (props) => {
     setValue(e.target.value);
   };
 
+  useEffect(() => {
+    setTimeout(() => setButtonsOpen(true), 500);
+  }, []);
+
   return (
     <div className={classes.root}>
       <Navbar />
       <div className={classes.container}>
         <div className={classes.textGroup}>
-          <h1>virtual coffee,</h1>
-          <h1>real company</h1>
-          <div>
-            <ToggleButtonGroup
-              className={classes.buttonGroup}
-              value={scene}
-              exclusive
-              onChange={handleScene}
-            >
-              <ToggleButton value="coffeeshop">coffeeshop</ToggleButton>
-              <ToggleButton value="picnic">picnic</ToggleButton>
-              <ToggleButton value="lounge">lounge</ToggleButton>
-            </ToggleButtonGroup>
-            <ToggleButtonGroup
-              className={classes.buttonGroup}
-              value={time}
-              exclusive
-              onChange={handleTime}
-            >
-              <ToggleButton value="day">day</ToggleButton>
-              <ToggleButton value="night">night</ToggleButton>
-            </ToggleButtonGroup>
-          </div>
-          <div className={classes.formGroup}>
-            <Button
-              className={classes.newButton}
-              variant="contained"
-              onClick={create}
-            >
-              create room
-            </Button>
-            <p className={classes.or}>or</p>
-            <form
-              className={classes.textField}
-              noValidate
-              autoComplete="off"
-              onSubmit={handleSubmit}
-            >
-              <CssTextField
-                className={classes.input}
-                id="outlined-basic"
-                label="enter a room link"
-                variant="outlined"
-                value={value}
-                onChange={handleChange}
-              />
-              <Button className={classes.joinButton} type="submit">
-                join
+          <Fade in timeout={1500}>
+            <h1>virtual coffee,</h1>
+          </Fade>
+          <Fade in timeout={1500}>
+            <h1>real company</h1>
+          </Fade>
+          <Grow in={buttonsOpen} timeout={1000}>
+            <div>
+              <ToggleButtonGroup
+                className={classes.buttonGroup}
+                value={scene}
+                exclusive
+                onChange={handleScene}
+              >
+                <ToggleButton value="coffeeshop">coffeeshop</ToggleButton>
+                <ToggleButton value="picnic">picnic</ToggleButton>
+                <ToggleButton value="lounge">lounge</ToggleButton>
+              </ToggleButtonGroup>
+              <ToggleButtonGroup
+                className={classes.buttonGroup}
+                value={time}
+                exclusive
+                onChange={handleTime}
+              >
+                <ToggleButton value="day">day</ToggleButton>
+                <ToggleButton value="night">night</ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+          </Grow>
+          <Grow in={buttonsOpen} timeout={1000}>
+            <div className={classes.formGroup}>
+              <Button
+                className={classes.newButton}
+                variant="contained"
+                onClick={create}
+              >
+                create room
               </Button>
-            </form>
-          </div>
+              <p className={classes.or}>or</p>
+              <form
+                className={classes.textField}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+              >
+                <CssTextField
+                  className={classes.input}
+                  id="outlined-basic"
+                  label="enter a room link"
+                  variant="outlined"
+                  value={value}
+                  onChange={handleChange}
+                />
+                <Button className={classes.joinButton} type="submit">
+                  join
+                </Button>
+              </form>
+            </div>
+          </Grow>
         </div>
+
         <img src={artwork} className={classes.artwork} />
       </div>
     </div>
