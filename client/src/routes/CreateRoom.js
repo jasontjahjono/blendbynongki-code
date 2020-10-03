@@ -71,11 +71,10 @@ const useStyles = makeStyles({
     borderRadius: 50,
   },
   buttonGroup: {
-    alignSelf: "center",
-    marginTop: 40,
+    margin: "20px 30px",
   },
   input: {
-    width: 350,
+    width: 300,
   },
   or: {
     margin: "0 20px",
@@ -96,16 +95,20 @@ const CreateRoom = (props) => {
   const classes = useStyles();
   const { isLoggedIn } = useContext(CotterContext);
   const [scene, setScene] = useState("coffeeshop");
+  const [time, setTime] = useState("night");
   const [value, setValue] = useState("");
 
   const handleScene = (event, newScene) => {
     setScene(newScene);
   };
+  const handleTime = (event, newTime) => {
+    setTime(newTime);
+  };
 
   const create = () => {
     if (isLoggedIn) {
       const id = uuid();
-      props.history.push(`/room/${id}?scene=${scene}`);
+      props.history.push(`/room/${id}?scene=${scene}&time=${time}`);
     } else {
       props.history.push("/login?err=unauthenticated");
     }
@@ -131,15 +134,27 @@ const CreateRoom = (props) => {
         <div className={classes.textGroup}>
           <h1>virtual coffee,</h1>
           <h1>real company</h1>
-          <ToggleButtonGroup
-            className={classes.buttonGroup}
-            value={scene}
-            exclusive
-            onChange={handleScene}
-          >
-            <ToggleButton value="coffeeshop">coffeeshop</ToggleButton>
-            <ToggleButton value="picnic">picnic</ToggleButton>
-          </ToggleButtonGroup>
+          <div>
+            <ToggleButtonGroup
+              className={classes.buttonGroup}
+              value={scene}
+              exclusive
+              onChange={handleScene}
+            >
+              <ToggleButton value="coffeeshop">coffeeshop</ToggleButton>
+              <ToggleButton value="picnic">picnic</ToggleButton>
+              <ToggleButton value="lounge">lounge</ToggleButton>
+            </ToggleButtonGroup>
+            <ToggleButtonGroup
+              className={classes.buttonGroup}
+              value={time}
+              exclusive
+              onChange={handleTime}
+            >
+              <ToggleButton value="day">day</ToggleButton>
+              <ToggleButton value="night">night</ToggleButton>
+            </ToggleButtonGroup>
+          </div>
           <div className={classes.formGroup}>
             <Button
               className={classes.newButton}

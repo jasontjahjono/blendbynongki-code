@@ -3,8 +3,12 @@ import { useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import picnic_bg from "../misc/picnic_bg.png";
-import cafe_bg from "../misc/cafe.jpg";
+import picnic_day from "../misc/picnic_day.png";
+import picnic_night from "../misc/picnic_night.png";
+import cafe_day from "../misc/cafe_day.png";
+import cafe_night from "../misc/cafe_night.png";
+import lounge_day from "../misc/lounge_day.png";
+import lounge_night from "../misc/lounge_night.png";
 import Footer from "../components/Footer";
 
 const useStyles = makeStyles({
@@ -59,9 +63,18 @@ const Room = (props) => {
   const classes = useStyles();
   const [peers, setPeers] = useState([]);
   let query = useQuery();
-
-  const background = query.get("scene") === "coffeeshop" ? cafe_bg : picnic_bg;
-
+  let background;
+  switch (query.get("scene")) {
+    case "coffeeshop":
+      background = query.get("time") === "day" ? cafe_day : cafe_night;
+      break;
+    case "picnic":
+      background = query.get("time") === "day" ? picnic_day : picnic_night;
+      break;
+    case "lounge":
+      background = query.get("time") === "day" ? lounge_day : lounge_night;
+      break;
+  }
   const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef([]);
