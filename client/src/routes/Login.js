@@ -80,15 +80,14 @@ const Login = (props) => {
     setOpen(false);
   };
 
-  //  2️⃣ Initialize and show the form
   useEffect(() => {
     if (query.get("err") === "unauthenticated") {
       setOpen(true);
     }
-    var cotter = new Cotter(COTTER_API_KEY_ID); // 👈 Specify your API KEY ID here
+    var cotter = new Cotter(COTTER_API_KEY_ID);
     cotter
-      .signInWithLink() // use .signInWithOTP() to send an OTP
-      .showEmailForm() // use .showPhoneForm() to send magic link to a phone number
+      .signInWithLink()
+      .showEmailForm()
       .then((response) => {
         checkLoggedIn();
         props.history.push("/");
@@ -108,7 +107,6 @@ const Login = (props) => {
           back
         </Button>
         <h1 className={classes.title}>Sign In</h1>
-        {/*  3️⃣  Put a <div> that will contain the form */}
         <Paper elevation={4} className={classes.paper}>
           <img src={logo} className={classes.logo} />
           <div id="cotter-form-container" style={{ width: 300, height: 250 }} />

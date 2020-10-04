@@ -9,7 +9,7 @@ import cafe_day from "../misc/cafe_day.png";
 import cafe_night from "../misc/cafe_night.png";
 import lounge_day from "../misc/lounge_day.png";
 import lounge_night from "../misc/lounge_night.png";
-import Footer from "../components/Footer";
+import Footer from "./Footer";
 
 const useStyles = makeStyles({
   root: {

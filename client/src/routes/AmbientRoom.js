@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Room from "./Room";
+import Room from "../components/Room";
 import cafe from "../misc/cafe.mp3";
 import picnic from "../misc/picnic.mp3";
 import lounge from "../misc/lounge.mp3";

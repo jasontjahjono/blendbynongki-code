@@ -6,24 +6,10 @@ import CotterContext from "./userContext";
 import { CotterAccessToken } from "cotter-token-js";
 
 export interface CotterProviderOptions extends Config {
-  /**
-   * The child nodes your Provider has wrapped
-   */
   children?: React.ReactNode;
   apiKeyID: string;
 }
 
-/**
- * ```jsx
- * <CotterProvider
- *   apiKeyID={YOUR_API_KEY_ID}
- * >
- *   <MyApp />
- * </CotterProvider>
- * ```
- *
- * Provides the CotterContext to its child components.
- */
 const CotterProvider = (opts: CotterProviderOptions) => {
   let { children, apiKeyID } = opts;
   const [loggedIn, setloggedIn] = useState(false);
