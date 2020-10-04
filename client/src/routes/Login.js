@@ -10,10 +10,12 @@ import Button from "@material-ui/core/Button";
 import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import background from "../misc/sign-in-bg.PNG";
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: "#fff4e3",
+    backgroundImage: `url(${background})`,
+    backgroundSize: "cover",
     width: "100%",
     height: "100vh",
     display: "flex",
